@@ -1,14 +1,28 @@
 import numpy as np
 from Algorithms.BruteForce import BruteForce
 from Algorithms.Greedy import Greedy
+from Datasets.ulysses16 import ulysses16
 
 
 class TSPSolver:
-    def __init__(self, N):
-        self.N = N
+    def __init__(self):
+        self.N = None
         self.path = []
         self.distance = 0
         self.MAP = None
+        self.COORDS = None
+
+    def getCoordsFromFile(self, problem):
+        '''
+        Read TSP problem from file.
+        '''
+        probs = {
+            'ulysses16': ulysses16('Datasets/ulysses16.tsp')
+        }
+        dataset = probs[problem]
+        self.COORDS = dataset.coords
+        self.N = dataset.N
+        self.MAP = self.setMapFromCoord(self.COORDS)
 
     def setMapFromDist(self, roads):
         m = np.zeros((self.N, self.N))
@@ -26,7 +40,7 @@ class TSPSolver:
         
 
     def solve(self, algorithm, start=0):
-        algors = 
+        algors = {
             'brute': BruteForce,
             'greedy': Greedy,
             # 'genetic': self.genetic
@@ -43,13 +57,17 @@ class TSPSolver:
 
     
 if __name__ == '__main__':
-    MAP = np.array([
-        [0, 1, 2, 3],
-        [1, 0, 4, 5],
-        [2, 4, 0, 6],
-        [3, 5, 6, 0]
-    ])
-    solver = TSPSolver(4)
-    solver.MAP = MAP
-    solver.solve(algorithm='brute')
-    print(solver.path, solver.distance)
+    # MAP = np.array([
+    #     [0, 1, 2, 3],
+    #     [1, 0, 4, 5],
+    #     [2, 4, 0, 6],
+    #     [3, 5, 6, 0]
+    # ])
+    # solver = TSPSolver(4)
+    # solver.MAP = MAP
+    # solver.solve(algorithm='brute')
+    # print(solver.path, solver.distance)
+
+    solver = TSPSolver()
+    solver.getCoordsFromFile(problem='ulysses16')
+    print(solver.COORDS)
