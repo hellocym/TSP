@@ -1,5 +1,6 @@
 import numpy as np
 from Algorithms.BruteForce import BruteForce
+from Algorithms.Greedy import Greedy
 
 
 class TSPSolver:
@@ -25,9 +26,9 @@ class TSPSolver:
         
 
     def solve(self, algorithm, start=0):
-        algors = {
+        algors = 
             'brute': BruteForce,
-            # 'greedy': self.greedy,
+            'greedy': Greedy,
             # 'genetic': self.genetic
         }
         self.path, self.distance = algors[algorithm](self.MAP, start)
